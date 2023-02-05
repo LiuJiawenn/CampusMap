@@ -1,0 +1,47 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+public class ShowMap extends JFrame
+{
+    public ShowMap() throws IOException
+    {
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setUndecorated(true);
+        com.sun.awt.AWTUtilities.setWindowOpaque(this,false);
+        this.setVisible(true);
+        BufferedImage bg = null;
+        bg = ImageIO.read(this.getClass().getResource("/Map.png"));
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+        int frameWidth = bg.getWidth()+18;
+        int frameHeight = bg.getHeight()+36;
+        int frameX = (screenWidth - frameWidth)/2;
+        int frameY = (screenHeight - frameHeight)/2;
+
+        this.setIconImage(bg);
+
+        this.setBounds(frameX, frameY, frameWidth, frameHeight);
+        this.setTitle("∆Â≈Ã");
+        getContentPane().setLayout(null);
+
+
+        JLabel boardLabel = new JLabel(new ImageIcon(bg));
+        boardLabel.setBounds(0, 0, bg.getWidth(), bg.getHeight());
+        JPanel imagePanel = (JPanel)this.getContentPane();
+
+        imagePanel.setOpaque(false);
+        this.getLayeredPane().add(boardLabel,0);
+    }
+
+    public static void main(String[] args) throws IOException
+    {
+        new ShowMap();
+
+    }
+
+}
